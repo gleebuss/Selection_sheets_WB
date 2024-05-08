@@ -50,12 +50,13 @@ if (pdf_file is not None) and (xlsx_file is not None):
         max_len = max(df[col].astype(str).str.len().max(), len(col))
         worksheet.set_column(idx, idx, max_len + 2)
 
+    for row_num, value in enumerate(sorted_df['Стикер'], start=0):
+        worksheet.write_rich_string(row_num+3, 4, value[:-4],  workbook.add_format({'bold': True}), value[-4:]+" ", workbook.add_format({'bold': False}))
+
     worksheet.merge_range('A1:E1', title, workbook.add_format({'bold': True, 'font_size': 14}))
     worksheet.merge_range('A2:B2', data)
     worksheet.write('C2', type)
     worksheet.merge_range('D2:E2', quantity)
-
-
     workbook.close()
 
     column_data = sorted_df['Стикер']
