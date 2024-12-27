@@ -22,16 +22,16 @@ def get_data_pdf(pdf_file):
 ##Доступ к хедеру excel фалйа
 def get_header_xlsx(xlsx_file):
     df = pd.read_excel(xlsx_file)
-    first_two_rows = df.head(1).copy()
-    selected_columns = first_two_rows.iloc[:, [0, 1, 2, 6]]
+    first_two_rows = df.head(4).copy()
+    selected_columns = first_two_rows.iloc[:, [0, 4]]
     title = selected_columns.columns.values[0]
     data = selected_columns.values[0][0]
-    type = selected_columns.values[0][2]
-    quantity = selected_columns.values[0][3]
+    type = selected_columns.values[2][0]
+    quantity = selected_columns.values[2][1]
     return (title, data, type, quantity)
 
 def get_tables(xlsx_file):
-    df = pd.read_excel(xlsx_file, skiprows = 2)
+    df = pd.read_excel(xlsx_file, skiprows = 4)
     columns_to_drop = ['Фото', 'Размер', 'Цвет']
     df = df.drop(columns=columns_to_drop)
         
